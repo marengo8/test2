@@ -3,5 +3,64 @@ title: "quartotest3"
 format: html
 editor: visual
 ---
-# Test 1
-## Test 2
+
+```{r}
+here::i_am("test3.Rproj")
+library(here)
+library(vroom)
+library(ggplot2)
+theme_set(theme_bw())
+```
+
+## Data import
+
+```{r}
+library(readr)
+bank <- read_delim("bank.csv")
+```
+
+## Data transformation
+
+```{r}
+#| message: false
+library(dplyr)
+```
+
+## Elementary operations
+
+### Data frames and tibble high level operations
+
+```{r}
+print(names(bank))
+
+#print(dim(bank))
+
+#print(summary(bank))
+```
+
+### Filtering, selecting and Extracting
+
+```{r}
+#bank |> filter(age>=50)|> nrow() |> print()
+#bank |> filter(marital=="married",education=="primary")|> nrow() |> print()
+#bank |> filter(age <=25 & (marital=="single" | education=="tertiary")) |>
+    summary() |> print()
+
+```
+
+### Selecting
+
+```{r}
+#bank |> select(age,job)|> summary()
+bank |> pull(age)|> summary()
+#bank |> select(where(is.numeric))|> summary()
+bank |> pull(age)|>  median() |> print()
+```
+
+## Creating Variables
+
+### Mutating
+
+```{r}
+
+```
