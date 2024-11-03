@@ -17,6 +17,7 @@ theme_set(theme_bw())
 ```{r}
 library(readr)
 bank <- read_delim("bank.csv")
+spotify <- readRDS("top-spotify-hits-2000-2019.Rds")
 ```
 
 ## Data transformation
@@ -31,8 +32,8 @@ library(dplyr)
 ### Data frames and tibble high level operations
 
 ```{r}
-print(names(bank))
-
+#print(names(bank))
+print(names(spotify))
 #print(dim(bank))
 
 #print(summary(bank))
@@ -51,10 +52,10 @@ print(names(bank))
 ### Selecting
 
 ```{r}
-#bank |> select(age,job)|> summary()
-bank |> pull(age)|> summary()
+bank |> select(age,job)|> print()
+#bank |> pull(age)|> summary()
 #bank |> select(where(is.numeric))|> summary()
-bank |> pull(age)|>  median() |> print()
+#bank |> pull(age)|>  median() |> print()
 ```
 
 ## Creating Variables
@@ -62,5 +63,53 @@ bank |> pull(age)|>  median() |> print()
 ### Mutating
 
 ```{r}
-
+  bank |> group_by(marital) |> summarise(m_age=median(age))
 ```
+
+
+# Gradded Lab 2023 : 
+
+## Quest 1 -> Done
+```{r}
+print(summary(spotify))
+```
+
+sumary(spotify)
+## Quest 2 : 
+```{r}
+spotify |> distinct(song) |> nrow() |> print()
+```
+## Quest 3 :
+```{r}
+spotify |> group_by(year) |> summarise(nb=n())
+```
+## Quest 4 :
+```{r}
+spotify |> 
+  group_by(artist) |> 
+  summarise((nb = n_distinct(song))) |> 
+  arrange(desc(nb)) |> 
+  slice(1)
+```
+
+## Quest 5 :
+```{r}
+spotify |>
+  group_by(genre) |>
+  summarise(
+    nb=n(),
+    min(tempo),
+    max(tempo),
+    mean(tempo),
+    median(tempo))
+```
+
+
+
+
+
+
+
+
+
+
